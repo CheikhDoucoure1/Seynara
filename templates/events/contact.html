@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 <section class="contact-section">
@@ -8,6 +9,41 @@
             padding: var(--spacing-2xl) 0;
             position: relative;
             overflow: hidden;
+        }
+
+        /* Ara Background */
+        .ara-background-contact {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.06;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .ara-background-contact img {
+            width: 140%;
+            height: 140%;
+            object-fit: cover;
+            animation: slowFloat 24s ease-in-out infinite;
+        }
+
+        /* Ginkgo Leaves */
+        .ginkgo-contact-top {
+            position: absolute;
+            right: 8%;
+            top: 10%;
+            width: 260px;
+            height: 260px;
+            opacity: 0.11;
+            z-index: 2;
+            animation: floatGinkgo 8s ease-in-out infinite;
+        }
+
+        .ginkgo-contact-top svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 10px 30px rgba(197, 164, 109, 0.2));
         }
 
         .contact-section::before {
@@ -20,6 +56,7 @@
             background: radial-gradient(circle, rgba(197, 164, 109, 0.08) 0%, transparent 70%);
             border-radius: 50%;
             animation: float 8s ease-in-out infinite;
+            z-index: 1;
         }
 
         .contact-container {
@@ -178,6 +215,20 @@
             color: var(--text-light);
         }
     </style>
+
+    <!-- Decorative Elements -->
+    <div class="ara-background-contact">
+        <img src="{% static 'img/logo-ara.png' %}" alt="">
+    </div>
+
+    <div class="ginkgo-contact-top">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <path d="M100 10 Q150 60 150 120 Q100 180 100 180 Q100 180 50 120 Q50 60 100 10" fill="#C5A46D" opacity="0.8"/>
+            <path d="M100 50 L100 170" stroke="#C5A46D" stroke-width="2" opacity="0.6"/>
+            <path d="M65 85 Q85 100 65 140" stroke="#C5A46D" stroke-width="1.5" fill="none" opacity="0.5"/>
+            <path d="M135 85 Q115 100 135 140" stroke="#C5A46D" stroke-width="1.5" fill="none" opacity="0.5"/>
+        </svg>
+    </div>
 
     <div class="contact-container">
         <h1>Échangeons ensemble</h1>
