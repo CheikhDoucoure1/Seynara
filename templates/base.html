@@ -1,0 +1,550 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}SEYNARA | L'art de créer l'exception{% endblock %}</title>
+    <meta name="description" content="SEYNARA - Maison événementielle premium basée à Dakar. Élégance, émotion, design et détail.">
+
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+
+    <style>
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes floatRotate {
+            0%, 100% {
+                transform: translateY(0px) rotateZ(2deg);
+            }
+            50% {
+                transform: translateY(-25px) rotateZ(-2deg);
+            }
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(197, 164, 109, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(197, 164, 109, 0.6);
+            }
+        }
+
+        @keyframes glowPulse {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(197, 164, 109, 0.2), 0 0 40px rgba(197, 164, 109, 0.1);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(197, 164, 109, 0.5), 0 0 80px rgba(197, 164, 109, 0.3);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -1000px 0;
+            }
+            100% {
+                background-position: 1000px 0;
+            }
+        }
+
+        @keyframes neonGlow {
+            0%, 100% {
+                text-shadow: 0 0 10px rgba(197, 164, 109, 0.5), 0 0 20px rgba(197, 164, 109, 0.3);
+            }
+            50% {
+                text-shadow: 0 0 20px rgba(197, 164, 109, 0.8), 0 0 40px rgba(197, 164, 109, 0.6), 0 0 60px rgba(197, 164, 109, 0.4);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: translateY(50px) scale(0.8);
+            }
+            50% {
+                transform: translateY(-10px) scale(1.05);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes slideUpStagger {
+            0% {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes revealLine {
+            0% {
+                width: 0;
+                opacity: 0;
+            }
+            100% {
+                width: 100%;
+                opacity: 1;
+            }
+        }
+
+        @keyframes typewriter {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes blink {
+            0%, 49%, 100% {
+                opacity: 1;
+            }
+            50%, 99% {
+                opacity: 0;
+            }
+        }
+
+        :root {
+            /* Palette officielle SEYNARA */
+            --bg-primary: #F7F2EA;
+            --bg-secondary: #D8C5AE;
+            --bg-dark: #49372F;
+            --text-primary: #49372F;
+            --text-light: #D8C5AE;
+            --accent: #C5A46D;
+            --accent-dark: #A68555;
+            --accent-light: #D9B896;
+            --border: #E8DFD5;
+            --bordeaux: #6B1F2A;
+            --bordeaux-light: #8B2E3A;
+
+            --font-display: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+            --font-body: 'Manrope', Arial, sans-serif;
+
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 3rem;
+            --spacing-2xl: 4rem;
+
+            color-scheme: light;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            text-wrap: balance;
+            color: var(--text-primary);
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            line-height: 1.15;
+        }
+
+        h3 {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            line-height: 1.2;
+        }
+
+        p {
+            font-size: 1.0625rem;
+            line-height: 1.7;
+            max-width: 70ch;
+        }
+
+        .subtitle {
+            font-family: var(--font-body);
+            font-size: clamp(1rem, 2vw, 1.125rem);
+            font-style: italic;
+            color: var(--accent-light);
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(247, 242, 234, 0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--accent);
+            padding: var(--spacing-md) var(--spacing-lg);
+            z-index: 1000;
+            animation: fadeInDown 0.6s ease;
+            box-shadow: 0 4px 12px rgba(107, 31, 42, 0.08);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo:hover {
+            color: var(--accent-light);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            display: inline-block;
+            animation: floatRotate 3s ease-in-out infinite;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .logo-parrot {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            filter: drop-shadow(0 2px 6px rgba(107, 31, 42, 0.4));
+            transition: filter 0.3s ease, transform 0.3s ease;
+        }
+
+        .logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 6px rgba(107, 31, 42, 0.4));
+            transition: filter 0.3s ease, transform 0.3s ease;
+        }
+
+        .logo:hover .logo-parrot,
+        .logo:hover .logo-img {
+            filter: drop-shadow(0 0 15px rgba(197, 164, 109, 0.8));
+            transform: scale(1.05);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: var(--spacing-xl);
+        }
+
+        nav a {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-lg);
+        }
+
+        section {
+            padding: var(--spacing-2xl) 0;
+        }
+
+        /* Buttons */
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 4px;
+            font-family: var(--font-body);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 2px solid var(--accent);
+            cursor: pointer;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-size: 0.95rem;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.4s ease;
+            z-index: -1;
+        }
+
+        .cta-button::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+            border-radius: 4px;
+            opacity: 0;
+            z-index: -2;
+            animation: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 0 30px rgba(197, 164, 109, 0.6), 0 20px 40px rgba(197, 164, 109, 0.3);
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover::after {
+            opacity: 0.5;
+            animation: pulse 0.6s ease;
+        }
+
+        .cta-button:active {
+            transform: translateY(-2px) scale(0.98);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border);
+            padding: var(--spacing-2xl) 0 var(--spacing-lg);
+            font-size: 0.95rem;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        footer .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        footer h4 {
+            font-size: 1rem;
+            margin-bottom: var(--spacing-md);
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        footer a {
+            display: block;
+            color: var(--text-light);
+            text-decoration: none;
+            margin-bottom: var(--spacing-sm);
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: var(--spacing-lg);
+            border-top: 1px solid var(--border);
+            color: var(--text-light);
+        }
+
+        .footer-bottom p {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        {% block extra_css %}{% endblock %}
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="/" class="logo">
+                <span class="logo-icon">
+                    <img src="{% static 'img/logo-ara.png' %}" alt="SEYNARA Ara Logo" class="logo-img">
+                </span>
+                SEYNARA
+            </a>
+            <ul>
+                <li><a href="{% url 'services' %}">Services</a></li>
+                <li><a href="{% url 'events' %}">Portfolio</a></li>
+                <li><a href="{% url 'about' %}">À propos</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    {% block content %}{% endblock %}
+
+    <footer>
+        <div class="container">
+            <div>
+                <h4>SEYNARA</h4>
+                <p>Maison événementielle premium basée à Dakar, Sénégal.</p>
+            </div>
+            <div>
+                <h4>Services</h4>
+                <a href="{% url 'services' %}">Nos services</a>
+                <a href="{% url 'about' %}">À propos</a>
+                <a href="{% url 'contact' %}">Contact</a>
+            </div>
+            <div>
+                <h4>Contact</h4>
+                <a href="tel:+221701234567">+221 70 123 45 67</a>
+                <a href="mailto:contact@seynara.sn">contact@seynara.sn</a>
+                <a href="#">Instagram</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 SEYNARA. L'art de créer l'exception.</p>
+        </div>
+    </footer>
+</body>
+</html>

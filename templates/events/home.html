@@ -1,0 +1,733 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="hero-premium">
+    <style>
+        .hero-premium {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #3D2126 0%, #5C3A31 50%, #4A3028 100%);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-2xl) var(--spacing-lg);
+        }
+
+        /* Ara Background Decoration */
+        .hero-ara-background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.08;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .hero-ara-background img {
+            width: 120%;
+            height: 120%;
+            object-fit: cover;
+            animation: slowFloat 20s ease-in-out infinite;
+        }
+
+        /* Ginkgo Leaves Left */
+        .ginkgo-left {
+            position: absolute;
+            left: 5%;
+            top: 15%;
+            width: 250px;
+            height: 250px;
+            opacity: 0.15;
+            z-index: 2;
+            animation: floatGinkgo 8s ease-in-out infinite;
+        }
+
+        .ginkgo-left svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 10px 30px rgba(197, 164, 109, 0.3));
+        }
+
+        /* Ginkgo Leaves Right */
+        .ginkgo-right {
+            position: absolute;
+            right: 5%;
+            bottom: 10%;
+            width: 300px;
+            height: 300px;
+            opacity: 0.18;
+            z-index: 2;
+            animation: floatGinkgo 10s ease-in-out infinite reverse;
+        }
+
+        .ginkgo-right svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 10px 30px rgba(197, 164, 109, 0.4));
+        }
+
+        /* Decorative Lines */
+        .curve-line-left {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 300px;
+            height: 100%;
+            opacity: 0.25;
+            z-index: 3;
+        }
+
+        .curve-line-left svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .curve-line-right {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 300px;
+            height: 100%;
+            opacity: 0.25;
+            z-index: 3;
+        }
+
+        .curve-line-right svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        @keyframes slowFloat {
+            0%, 100% {
+                transform: scale(1) translateY(0);
+            }
+            50% {
+                transform: scale(1.05) translateY(-30px);
+            }
+        }
+
+        @keyframes floatGinkgo {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-40px) rotate(5deg);
+            }
+        }
+
+        .hero-content-wrapper {
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+            width: 100%;
+            text-align: center;
+            animation: fadeInUp 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        }
+
+        .hero-emblem {
+            margin-bottom: var(--spacing-xl);
+            animation: scaleIn 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+            filter: drop-shadow(0 30px 80px rgba(0, 0, 0, 0.6));
+        }
+
+        .emblem-img {
+            width: 100%;
+            max-width: 280px;
+            height: auto;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .hero-divider-top {
+            width: 100px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #C5A46D, transparent);
+            margin: 1.5rem auto;
+            animation: revealLine 1.2s ease 0.4s both;
+        }
+
+        .hero-brand {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #F7F2EA;
+            letter-spacing: 0.15em;
+            margin-bottom: 0.5rem;
+            animation: fadeInDown 1.2s ease 0.3s both;
+            text-transform: uppercase;
+        }
+
+        .hero-subtitle {
+            font-size: 0.9rem;
+            color: #C5A46D;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            animation: fadeInUp 1.2s ease 0.35s both;
+        }
+
+        .hero-location {
+            font-size: 0.85rem;
+            color: #C5A46D;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1.2s ease 0.4s both;
+        }
+
+        .hero-divider-center {
+            width: 80px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #C5A46D, transparent);
+            margin: 2rem auto;
+            animation: revealLine 1.2s ease 0.5s both;
+            position: relative;
+        }
+
+        .hero-divider-center::after {
+            content: '⚜';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #C5A46D;
+            font-size: 1.5rem;
+        }
+
+        .hero-tagline {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            color: #F7F2EA;
+            margin: 0;
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+            animation: fadeInUp 1.2s ease 0.5s both;
+            font-style: italic;
+        }
+
+        .hero-pillars {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem auto 3rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 1.2s ease 0.6s both;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #C5A46D;
+            font-weight: 600;
+        }
+
+        .pillar-dot {
+            color: #C5A46D;
+            opacity: 0.6;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-lg);
+            margin-top: 3rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 1.2s ease 0.7s both;
+        }
+
+        .cta-primary {
+            background: linear-gradient(135deg, #C5A46D 0%, #B8945E 100%);
+            color: #3D2126 !important;
+            padding: 1.2rem 3rem !important;
+            font-weight: 700;
+            border: none !important;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-size: 0.95rem;
+        }
+
+        .cta-primary::before {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .cta-secondary {
+            background: transparent !important;
+            color: #C5A46D !important;
+            border: 2px solid #C5A46D !important;
+            padding: 1rem 2.5rem !important;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .cta-secondary:hover {
+            background: rgba(197, 164, 109, 0.15) !important;
+        }
+
+        @media (max-width: 768px) {
+            .ginkgo-left, .ginkgo-right {
+                opacity: 0.06;
+            }
+
+            .hero-brand {
+                font-size: 1.8rem;
+            }
+
+            .hero-tagline {
+                font-size: 1.8rem;
+            }
+
+            .hero-pillars {
+                gap: 1rem;
+                margin: 1.5rem auto 2rem;
+            }
+
+            .hero-cta-group {
+                flex-direction: column;
+                gap: var(--spacing-md);
+            }
+
+            .emblem-img {
+                max-width: 200px;
+            }
+        }
+    </style>
+
+    <!-- Background Ara Faint -->
+    <div class="hero-ara-background">
+        <img src="{% static 'img/logo-ara.png' %}" alt="">
+    </div>
+
+    <!-- Decorative Elements -->
+    <div class="curve-line-left">
+        <svg viewBox="0 0 100 600" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+            <path d="M80 0 Q60 150 80 300 Q60 450 80 600" stroke="#C5A46D" stroke-width="2" fill="none"/>
+            <path d="M60 50 Q40 200 60 350 Q40 500 60 550" stroke="#C5A46D" stroke-width="1.5" fill="none" opacity="0.7"/>
+        </svg>
+    </div>
+
+    <div class="curve-line-right">
+        <svg viewBox="0 0 100 600" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+            <path d="M20 0 Q40 150 20 300 Q40 450 20 600" stroke="#C5A46D" stroke-width="2" fill="none"/>
+            <path d="M40 50 Q60 200 40 350 Q60 500 40 550" stroke="#C5A46D" stroke-width="1.5" fill="none" opacity="0.7"/>
+        </svg>
+    </div>
+
+    <!-- Ginkgo Leaves -->
+    <div class="ginkgo-left">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <path d="M100 10 Q150 60 150 120 Q100 180 100 180 Q100 180 50 120 Q50 60 100 10" fill="#C5A46D" opacity="0.8"/>
+            <path d="M100 50 L100 170" stroke="#C5A46D" stroke-width="2" opacity="0.6"/>
+            <path d="M65 85 Q85 100 65 140" stroke="#C5A46D" stroke-width="1.5" fill="none" opacity="0.5"/>
+            <path d="M135 85 Q115 100 135 140" stroke="#C5A46D" stroke-width="1.5" fill="none" opacity="0.5"/>
+        </svg>
+    </div>
+
+    <div class="ginkgo-right">
+        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <path d="M100 10 Q150 60 150 120 Q100 180 100 180 Q100 180 50 120 Q50 60 100 10" fill="#C5A46D" opacity="0.8"/>
+            <path d="M100 50 L100 170" stroke="#C5A46D" stroke-width="2" opacity="0.6"/>
+            <path d="M65 85 Q85 100 65 140" stroke="#C5A46D" stroke-width="1.5" fill="none" opacity="0.5"/>
+            <path d="M135 85 Q115 100 135 140" stroke="#C5A46D" stroke-width="1.5" fill="none" opacity="0.5"/>
+        </svg>
+    </div>
+
+    <div class="hero-content-wrapper">
+        <div class="hero-emblem">
+            <img src="{% static 'img/logo-ara.png' %}" alt="SEYNARA - L'art de créer l'exception" class="emblem-img">
+        </div>
+
+        <div class="hero-divider-top"></div>
+
+        <h1 class="hero-brand">SEYNARA</h1>
+        <p class="hero-subtitle">Maison événementielle</p>
+        <p class="hero-location">Sénégal</p>
+
+        <div class="hero-divider-center"></div>
+
+        <h2 class="hero-tagline">L'art de créer l'exception</h2>
+
+        <div class="hero-pillars">
+            <span>Élégance</span>
+            <span class="pillar-dot">·</span>
+            <span>Design</span>
+            <span class="pillar-dot">·</span>
+            <span>Émotion</span>
+            <span class="pillar-dot">·</span>
+            <span>Détail</span>
+        </div>
+
+        <div class="hero-cta-group">
+            <a href="{% url 'contact' %}" class="cta-button cta-primary">Commencer votre projet</a>
+            <a href="{% url 'events' %}" class="cta-button cta-secondary">Découvrir nos événements</a>
+        </div>
+    </div>
+</section>
+
+<section class="pillars-premium">
+    <style>
+        .pillars-premium {
+            background: linear-gradient(180deg, #F7F2EA 0%, #E8DFD5 100%);
+            position: relative;
+            overflow: hidden;
+            padding: var(--spacing-2xl) var(--spacing-lg);
+        }
+
+        .pillars-premium::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: -100px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(197, 164, 109, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 10s ease-in-out infinite;
+        }
+
+        .pillars-premium::after {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            right: -100px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(107, 31, 42, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 12s ease-in-out infinite reverse;
+        }
+
+        .pillars-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .pillars-title {
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .pillars-title h2 {
+            color: #3D2126;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .pillars-title p {
+            color: var(--accent);
+            font-style: italic;
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-2xl);
+        }
+
+        .pillar-card {
+            background: white;
+            padding: var(--spacing-xl);
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(107, 31, 42, 0.08);
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+            animation: bounceIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .pillar-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #C5A46D, #6B1F2A);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .pillar-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 30px 60px rgba(107, 31, 42, 0.15);
+        }
+
+        .pillar-icon {
+            font-size: 4rem;
+            margin-bottom: var(--spacing-md);
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+            transition: transform 0.3s ease;
+        }
+
+        .pillar-card:hover .pillar-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .pillar-card h3 {
+            margin-bottom: var(--spacing-md);
+            color: #3D2126;
+            font-size: 1.4rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        .pillar-card:hover h3 {
+            color: var(--accent);
+        }
+
+        .pillar-card p {
+            font-size: 1rem;
+            line-height: 1.7;
+            margin: 0;
+            color: #49372F;
+        }
+
+        @media (max-width: 768px) {
+            .pillars-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <div class="pillars-container">
+        <div class="pillars-title">
+            <h2>Nos piliers fondamentaux</h2>
+            <p>L'excellence à travers quatre valeurs</p>
+        </div>
+        <div class="pillars-grid">
+            {% for service in services %}
+            <div class="pillar-card">
+                <div class="pillar-icon">
+                    {% if service.pillar == 'elegance' %}✨
+                    {% elif service.pillar == 'emotion' %}❤️
+                    {% elif service.pillar == 'design' %}🎨
+                    {% else %}💎{% endif %}
+                </div>
+                <h3>{{ service.get_pillar_display }}</h3>
+                <p>{{ service.description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="events-premium">
+    <style>
+        .events-premium {
+            background: linear-gradient(180deg, #3D2126 0%, #5C3A31 100%);
+            position: relative;
+            overflow: hidden;
+            padding: var(--spacing-2xl) var(--spacing-lg);
+        }
+
+        .events-premium::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -200px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(197, 164, 109, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .events-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .events-title {
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .events-title h2 {
+            color: #F7F2EA;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .events-title p {
+            color: var(--accent-light);
+            font-style: italic;
+        }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-2xl);
+        }
+
+        .event-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            animation: fadeInUp 0.8s ease;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .event-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(135deg, rgba(197, 164, 109, 0.2) 0%, rgba(107, 31, 42, 0.2) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .event-card:hover::before {
+            opacity: 1;
+        }
+
+        .event-card:hover {
+            transform: translateY(-20px);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+        }
+
+        .event-image {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: linear-gradient(135deg, #C5A46D 0%, #6B4423 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .event-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.3) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .event-card:hover .event-image::after {
+            opacity: 1;
+        }
+
+        .event-content {
+            padding: var(--spacing-lg);
+            position: relative;
+            z-index: 2;
+        }
+
+        .event-date {
+            color: var(--accent);
+            font-size: 0.85rem;
+            margin-bottom: var(--spacing-sm);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 700;
+        }
+
+        .event-content h3 {
+            margin-bottom: var(--spacing-sm);
+            color: #3D2126;
+            font-size: 1.3rem;
+            font-weight: 700;
+            transition: color 0.3s ease;
+        }
+
+        .event-card:hover .event-content h3 {
+            color: var(--accent);
+        }
+
+        .event-content p {
+            color: #49372F;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .event-link {
+            display: inline-block;
+            margin-top: var(--spacing-md);
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .event-link::after {
+            content: '→';
+            margin-left: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .event-card:hover .event-link::after {
+            transform: translateX(5px);
+        }
+
+        .events-cta {
+            text-align: center;
+            margin-top: var(--spacing-2xl);
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        @media (max-width: 768px) {
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <div class="events-container">
+        <div class="events-title">
+            <h2>Événements en vedette</h2>
+            <p>Découvrez nos créations les plus spectaculaires</p>
+        </div>
+        <div class="events-grid">
+            {% for event in events %}
+            <div class="event-card">
+                <div class="event-image">🎉</div>
+                <div class="event-content">
+                    <p class="event-date">{{ event.date|date:"d M Y" }}</p>
+                    <h3>{{ event.title }}</h3>
+                    <p>{{ event.description|truncatewords:15 }}</p>
+                    <a href="{% url 'event_detail' event.pk %}" class="event-link">Découvrir</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="events-cta">
+            <a href="{% url 'events' %}" class="cta-button">Voir tous nos événements</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

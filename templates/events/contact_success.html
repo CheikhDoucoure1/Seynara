@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section style="background: var(--bg-primary); padding: var(--spacing-2xl) 0; min-height: 60vh; display: flex; align-items: center; justify-content: center; text-align: center;">
+    <div style="max-width: 600px; padding: 0 var(--spacing-lg);">
+        <h1 style="margin-bottom: var(--spacing-md);">Merci !</h1>
+        <p class="subtitle" style="display: block; margin-bottom: var(--spacing-lg);">Votre message a été reçu</p>
+        <p style="margin-bottom: var(--spacing-xl);">Nous vous remercions de votre intérêt. Notre équipe examinera votre demande et vous contactera très bientôt pour discuter de votre projet exceptionnel.</p>
+        <a href="{% url 'home' %}" class="cta-button">Retour à l'accueil</a>
+    </div>
+</section>
+{% endblock %}

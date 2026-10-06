@@ -1,0 +1,228 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="about-hero">
+    <style>
+        .about-hero {
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            padding: var(--spacing-2xl) 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-hero::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: -100px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(197, 164, 109, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-2xl);
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .about-content {
+            animation: slideInRight 0.8s ease;
+        }
+
+        .about-content h1 {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .about-content p {
+            margin-bottom: var(--spacing-lg);
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        .about-content h2 {
+            margin-top: var(--spacing-2xl);
+            margin-bottom: var(--spacing-lg);
+            font-size: 1.75rem;
+            color: var(--accent-light);
+        }
+
+        .about-image {
+            width: 100%;
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8rem;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease 0.2s both;
+            box-shadow: 0 30px 60px rgba(197, 164, 109, 0.2);
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.2) 100%);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @media (max-width: 1024px) {
+            .about-container {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image {
+                min-height: 400px;
+            }
+        }
+    </style>
+
+    <div class="container">
+        <div class="about-container">
+            <div class="about-content">
+                <h1>Entrez dans notre univers</h1>
+                <p>SEYNARA accompagne ses clients dans la conception d'événements singuliers. Notre univers associe l'élégance contemporaine, l'émotion juste, le design et une exigence constante du détail.</p>
+
+                <p>Basés à Dakar, nous créons des expériences événementielles raffinées, sensibles et parfaitement maîtrisées, qui laissent une empreinte durable.</p>
+
+                <p>Nos publics prioritaires sont les clients privés, les marques, les entreprises et les partenaires recherchant une exécution premium et une direction esthétique cohérente.</p>
+
+                <h2>Notre promesse</h2>
+                <p>Concevoir des expériences événementielles raffinées, sensibles et parfaitement maîtrisées, qui laissent une empreinte durable.</p>
+            </div>
+
+            <div class="about-image">
+                <img src="{% static 'img/seynara-ara-about.png' %}" alt="SEYNARA - Ara Premium Design">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="values-section">
+    <style>
+        .values-section {
+            background: var(--bg-primary);
+            padding: var(--spacing-2xl) 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .values-section::after {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            right: -100px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(197, 164, 109, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .values-section h2 {
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+            animation: fadeInDown 0.8s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-xl);
+            position: relative;
+            z-index: 2;
+        }
+
+        .value-card {
+            padding: var(--spacing-xl);
+            background: linear-gradient(135deg, #1A1815 0%, #252019 100%);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .value-card:hover {
+            transform: translateY(-12px);
+            border-color: var(--accent);
+            box-shadow: 0 30px 60px rgba(197, 164, 109, 0.15);
+        }
+
+        .value-card h3 {
+            color: var(--accent-light);
+            margin-bottom: var(--spacing-md);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 1.25rem;
+            transition: color 0.3s ease;
+        }
+
+        .value-card:hover h3 {
+            color: var(--accent);
+        }
+
+        .value-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .values-cta {
+            text-align: center;
+            margin-top: var(--spacing-2xl);
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+    </style>
+
+    <div class="container">
+        <h2>Nos valeurs</h2>
+
+        <div class="values-grid">
+            <div class="value-card">
+                <h3>✨ Élégance</h3>
+                <p>Des choix raffinés, équilibrés et jamais ostentatoires dans chaque décision.</p>
+            </div>
+            <div class="value-card">
+                <h3>❤️ Émotion</h3>
+                <p>Des attentions qui créent du lien et rendent chaque moment mémorable.</p>
+            </div>
+            <div class="value-card">
+                <h3>🎨 Design</h3>
+                <p>Une vision esthétique reconnaissable, pensée dans les moindres détails.</p>
+            </div>
+            <div class="value-card">
+                <h3>💎 Détail</h3>
+                <p>Une exécution précise, de la conception à la réalisation.</p>
+            </div>
+        </div>
+
+        <div class="values-cta">
+            <a href="{% url 'contact' %}" class="cta-button">Commençons votre projet</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section style="background: var(--bg-primary); padding: var(--spacing-2xl) 0;">
+    <div class="container">
+        <style>
+            .event-detail {
+                max-width: 900px;
+                margin: 0 auto;
+            }
+
+            .event-detail-image {
+                width: 100%;
+                aspect-ratio: 16 / 9;
+                background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 6rem;
+                margin-bottom: var(--spacing-2xl);
+                border-radius: 8px;
+            }
+
+            .event-detail-meta {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: var(--spacing-lg);
+                margin-bottom: var(--spacing-2xl);
+                padding-bottom: var(--spacing-2xl);
+                border-bottom: 1px solid var(--border);
+            }
+
+            .meta-item h4 {
+                color: var(--accent);
+                margin-bottom: var(--spacing-sm);
+                font-size: 0.9rem;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+            }
+
+            .meta-item p {
+                margin: 0;
+                font-size: 1.125rem;
+            }
+        </style>
+
+        <div class="event-detail">
+            <h1 style="margin-bottom: var(--spacing-md);">{{ event.title }}</h1>
+            <p class="subtitle" style="display: block; margin-bottom: var(--spacing-xl);">{{ event.date|date:"d F Y" }}</p>
+
+            <div class="event-detail-image">🦜</div>
+
+            <div class="event-detail-meta">
+                <div class="meta-item">
+                    <h4>Date</h4>
+                    <p>{{ event.date|date:"d M Y" }}</p>
+                </div>
+                <div class="meta-item">
+                    <h4>Localisation</h4>
+                    <p>{{ event.location }}</p>
+                </div>
+            </div>
+
+            <div style="margin-bottom: var(--spacing-2xl);">
+                {{ event.description|linebreaks }}
+            </div>
+
+            <div style="background: var(--bg-secondary); padding: var(--spacing-xl); border: 1px solid var(--border); text-align: center;">
+                <h3 style="margin-bottom: var(--spacing-md);">Vous avez un projet similaire ?</h3>
+                <p style="margin-bottom: var(--spacing-lg);">Parlons ensemble de l'exception que vous souhaitez créer.</p>
+                <a href="{% url 'contact' %}" class="cta-button">Nous contacter</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

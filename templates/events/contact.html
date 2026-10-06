@@ -1,0 +1,230 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="contact-section">
+    <style>
+        .contact-section {
+            background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            padding: var(--spacing-2xl) 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            top: -150px;
+            right: -100px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(197, 164, 109, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .contact-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-lg);
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-section h1 {
+            text-align: center;
+            margin-bottom: var(--spacing-md);
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .contact-section .subtitle {
+            text-align: center;
+            display: block;
+            margin-bottom: var(--spacing-2xl);
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .contact-form {
+            background: linear-gradient(135deg, rgba(26, 24, 21, 0.6) 0%, rgba(37, 32, 25, 0.6) 100%);
+            padding: var(--spacing-xl);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 0.8s ease 0.3s both;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: var(--spacing-sm);
+            font-weight: 500;
+            color: var(--accent-light);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: var(--spacing-md);
+            border: 1px solid var(--border);
+            background: rgba(15, 14, 12, 0.8);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: rgba(15, 14, 12, 1);
+            box-shadow: 0 0 0 3px rgba(197, 164, 109, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+            font-family: var(--font-body);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem var(--spacing-md);
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            color: white;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            font-family: var(--font-body);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.95rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(197, 164, 109, 0.3);
+        }
+
+        .submit-btn:hover::before {
+            left: 100%;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-2xl);
+            animation: fadeInUp 0.8s ease 0.4s both;
+        }
+
+        .info-item {
+            padding: var(--spacing-lg);
+            background: linear-gradient(135deg, #1A1815 0%, #252019 100%);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .info-item:hover {
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(197, 164, 109, 0.1);
+        }
+
+        .info-item h3 {
+            color: var(--accent-light);
+            margin-bottom: var(--spacing-md);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 1rem;
+        }
+
+        .info-item a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            display: block;
+        }
+
+        .info-item a:hover {
+            color: var(--accent-light);
+        }
+
+        .info-item p {
+            color: var(--text-light);
+        }
+    </style>
+
+    <div class="contact-container">
+        <h1>Échangeons ensemble</h1>
+        <p class="subtitle">✨ Entrez en contact avec nous pour parler de votre projet</p>
+
+        <div class="contact-form">
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="name">Nom complet *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Téléphone</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message *</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Envoyer ma demande</button>
+            </form>
+        </div>
+
+        <div class="contact-info">
+            <div class="info-item">
+                <h3>📱 Par téléphone</h3>
+                <a href="tel:+221701234567">+221 70 123 45 67</a>
+            </div>
+            <div class="info-item">
+                <h3>✉️ Par email</h3>
+                <a href="mailto:contact@seynara.sn">contact@seynara.sn</a>
+            </div>
+            <div class="info-item">
+                <h3>📍 Localisation</h3>
+                <p>Dakar, Sénégal</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

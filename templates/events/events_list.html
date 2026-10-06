@@ -1,0 +1,240 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="portfolio-section">
+    <style>
+        .portfolio-section {
+            background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            padding: var(--spacing-2xl) 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portfolio-section::before {
+            content: '';
+            position: absolute;
+            top: -150px;
+            right: -100px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(197, 164, 109, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .portfolio-section h1 {
+            text-align: center;
+            margin-bottom: var(--spacing-md);
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .portfolio-section .subtitle {
+            text-align: center;
+            display: block;
+            margin-bottom: var(--spacing-2xl);
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-2xl);
+            position: relative;
+            z-index: 2;
+        }
+
+        .event-card {
+            background: linear-gradient(135deg, #1A1815 0%, #252019 100%);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .event-card:hover {
+            transform: translateY(-15px);
+            border-color: var(--accent);
+            box-shadow: 0 40px 80px rgba(197, 164, 109, 0.2);
+        }
+
+        .event-image {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .event-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(197, 164, 109, 0.3) 0%, rgba(106, 68, 35, 0.3) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .event-card:hover .event-image::after {
+            opacity: 1;
+        }
+
+        .event-content {
+            padding: var(--spacing-lg);
+        }
+
+        .event-content h3 {
+            margin-bottom: var(--spacing-sm);
+            color: var(--accent-light);
+            transition: color 0.3s ease;
+        }
+
+        .event-card:hover .event-content h3 {
+            color: var(--accent);
+        }
+
+        .event-date {
+            color: var(--accent);
+            font-size: 0.85rem;
+            margin-bottom: var(--spacing-sm);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+
+        .event-content p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .event-content a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            position: relative;
+        }
+
+        .event-content a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+            transform-origin: right;
+        }
+
+        .event-content a:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .event-content a:hover {
+            color: var(--accent-light);
+        }
+
+        .pagination-wrapper {
+            text-align: center;
+            margin-top: var(--spacing-2xl);
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 0.8s ease 0.3s both;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-sm);
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .pagination a, .pagination span {
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: 1px solid var(--border);
+            text-decoration: none;
+            color: var(--text-light);
+            transition: all 0.3s ease;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .pagination a:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .pagination span {
+            color: var(--text-light);
+        }
+
+        .pagination .page-current {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <div class="container">
+        <h1>Notre portfolio</h1>
+        <p class="subtitle">✨ Découvrez nos réalisations exceptionnelles</p>
+
+        <div class="events-grid">
+            {% for event in events %}
+            <div class="event-card">
+                <div class="event-image">🦜</div>
+                <div class="event-content">
+                    <p class="event-date">{{ event.date|date:"d M Y" }}</p>
+                    <h3>{{ event.title }}</h3>
+                    <p>{{ event.description|truncatewords:15 }}</p>
+                    <a href="{% url 'event_detail' event.pk %}">Lire plus →</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% if is_paginated %}
+        <div class="pagination-wrapper">
+            <div class="pagination">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">« Première</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">< Précédente</a>
+                {% endif %}
+
+                <span>Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }}</span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">Suivante ></a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">Dernière »</a>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

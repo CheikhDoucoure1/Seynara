@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="services-section">
+    <style>
+        .services-section {
+            background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            padding: var(--spacing-2xl) 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .services-section::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -200px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(197, 164, 109, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .services-section h1 {
+            text-align: center;
+            margin-bottom: var(--spacing-md);
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .services-section .subtitle {
+            text-align: center;
+            display: block;
+            margin-bottom: var(--spacing-2xl);
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .services-list {
+            display: grid;
+            gap: var(--spacing-lg);
+            max-width: 950px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-item {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: var(--spacing-xl);
+            padding: var(--spacing-xl) var(--spacing-xl) var(--spacing-xl) var(--spacing-lg);
+            background: linear-gradient(135deg, rgba(26, 24, 21, 0.5) 0%, rgba(37, 32, 25, 0.5) 100%);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--accent);
+            border-radius: 4px;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: fadeInUp 0.8s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(197, 164, 109, 0.1), transparent);
+            transition: left 0.6s ease;
+            z-index: 1;
+        }
+
+        .service-item:hover::before {
+            left: 100%;
+        }
+
+        .service-item:hover {
+            transform: translateX(10px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(197, 164, 109, 0.1);
+        }
+
+        .service-number {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            color: var(--accent);
+            flex-shrink: 0;
+            font-weight: 700;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-content h3 {
+            margin-bottom: var(--spacing-sm);
+            color: var(--accent-light);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-size: 1.25rem;
+        }
+
+        .service-item:hover .service-content h3 {
+            color: var(--accent);
+        }
+
+        .service-content p {
+            font-size: 1rem;
+            margin: 0;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        .services-cta {
+            text-align: center;
+            margin-top: var(--spacing-2xl);
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 0.8s ease 0.3s both;
+        }
+
+        @media (max-width: 768px) {
+            .services-list {
+                gap: var(--spacing-md);
+            }
+
+            .service-item {
+                grid-template-columns: 60px 1fr;
+                gap: var(--spacing-md);
+                padding: var(--spacing-lg) var(--spacing-md) var(--spacing-lg) var(--spacing-md);
+            }
+
+            .service-number {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+
+    <div class="container">
+        <h1>Nos services</h1>
+        <p class="subtitle">✨ Une direction élégante, une émotion juste et une exécution orchestrée</p>
+
+        <div class="services-list">
+            {% for service in services %}
+            <div class="service-item">
+                <div class="service-number">{{ forloop.counter|stringformat:"02d" }}</div>
+                <div class="service-content">
+                    <h3>{{ service.title }}</h3>
+                    <p>{{ service.description }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="services-cta">
+            <a href="{% url 'contact' %}" class="cta-button">Parlons de votre projet</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
