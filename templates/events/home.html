@@ -15,7 +15,7 @@
             padding: var(--spacing-2xl) var(--spacing-lg);
         }
 
-        /* Video Background Animation */
+        /* Video Background */
         .video-background {
             position: absolute;
             top: 0;
@@ -23,28 +23,30 @@
             width: 100%;
             height: 100%;
             z-index: 0;
-            opacity: 0.1;
             pointer-events: none;
+            overflow: hidden;
         }
 
-        .video-background::before {
-            content: '';
+        .video-background iframe {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            transform: translate(-50%, -50%);
+            opacity: 0.25;
+            border: none;
+        }
+
+        .video-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(197, 164, 109, 0.3) 0%, transparent 50%, rgba(197, 164, 109, 0.2) 100%);
-            animation: videoGradient 8s ease-in-out infinite;
-        }
-
-        @keyframes videoGradient {
-            0%, 100% {
-                background: linear-gradient(135deg, rgba(197, 164, 109, 0.3) 0%, transparent 50%, rgba(197, 164, 109, 0.2) 100%);
-            }
-            50% {
-                background: linear-gradient(45deg, rgba(197, 164, 109, 0.5) 0%, transparent 50%, rgba(197, 164, 109, 0.4) 100%);
-            }
+            background: linear-gradient(135deg, rgba(61, 33, 38, 0.7) 0%, rgba(92, 58, 49, 0.7) 50%, rgba(74, 48, 40, 0.7) 100%);
+            z-index: 1;
+            pointer-events: none;
         }
 
         /* Animated particles (ara) */
@@ -440,8 +442,11 @@
         }
     </style>
 
-    <!-- Video Background Animation -->
-    <div class="video-background"></div>
+    <!-- Video Background -->
+    <div class="video-background">
+        <iframe width="1920" height="1080" src="https://www.youtube.com/embed/p84c9c-cNEw?autoplay=1&mute=1&loop=1&playlist=p84c9c-cNEw&controls=0&modestbranding=1&rel=0" allow="autoplay; muted" loading="lazy"></iframe>
+        <div class="video-overlay"></div>
+    </div>
 
     <!-- Animated Particles -->
     <div class="particle">🦜</div>

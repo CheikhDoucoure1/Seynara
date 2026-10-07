@@ -63,6 +63,40 @@
             filter: drop-shadow(0 10px 30px rgba(197, 164, 109, 0.2));
         }
 
+        /* Video Background */
+        .services-video-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .services-video-bg iframe {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            transform: translate(-50%, -50%);
+            opacity: 0.15;
+            border: none;
+        }
+
+        .services-video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(247, 242, 234, 0.95) 0%, rgba(216, 197, 174, 0.95) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
         .services-section::before {
             content: '';
             position: absolute;
@@ -232,6 +266,12 @@
             }
         }
     </style>
+
+    <!-- Video Background -->
+    <div class="services-video-bg">
+        <iframe width="1920" height="1080" src="https://www.youtube.com/embed/aqz-KE-bpKQ?autoplay=1&mute=1&loop=1&playlist=aqz-KE-bpKQ&controls=0&modestbranding=1&rel=0" allow="autoplay; muted" loading="lazy"></iframe>
+        <div class="services-video-overlay"></div>
+    </div>
 
     <!-- Decorative Elements -->
     <div class="ara-background-services">
